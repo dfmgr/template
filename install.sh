@@ -24,12 +24,12 @@ SCRIPTSFUNCTFILE="${SCRIPTSAPPFUNCTFILE:-app-installer.bash}"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if [ -f "$SCRIPTSFUNCTDIR/functions/$SCRIPTSFUNCTFILE" ]; then
-  . "$SCRIPTSFUNCTDIR/functions/$SCRIPTSFUNCTFILE"
+    . "$SCRIPTSFUNCTDIR/functions/$SCRIPTSFUNCTFILE"
 elif [ -f "$HOME/.local/share/CasjaysDev/functions/$SCRIPTSFUNCTFILE" ]; then
-  . "$HOME/.local/share/CasjaysDev/functions/$SCRIPTSFUNCTFILE"
+    . "$HOME/.local/share/CasjaysDev/functions/$SCRIPTSFUNCTFILE"
 else
-  curl -LSs "$SCRIPTSFUNCTURL/$SCRIPTSFUNCTFILE" -o "/tmp/$SCRIPTSFUNCTFILE" || exit 1
-  . "/tmp/$SCRIPTSFUNCTFILE"
+    curl -LSs "$SCRIPTSFUNCTURL/$SCRIPTSFUNCTFILE" -o "/tmp/$SCRIPTSFUNCTFILE" || exit 1
+    . "/tmp/$SCRIPTSFUNCTFILE"
 fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -71,7 +71,7 @@ dfmgr_install
 
 # Set options
 
-APPDIR="${APPDIR:-$CONF/$APPNAME}"
+APPDIR="${HOMEDIR:-$CONF}/$APPNAME"
 PLUGDIR="$SHARE/$APPNAME"
 REPO="${DFMGRREPO:-https://github.com/dfmgr}/$APPNAME"
 
@@ -142,11 +142,11 @@ ensure_perms
 # Main progam
 
 if [ -d "$APPDIR/.git" ]; then
-  execute \
+    execute \
     "git_update $APPDIR" \
     "Updating $APPNAME configurations"
 else
-  execute \
+    execute \
     "backupapp && \
         git_clone -q $REPO/$APPNAME $APPDIR" \
     "Installing $APPNAME configurations"
@@ -160,15 +160,15 @@ failexitcode
 # Plugins
 
 if [ "$PLUGNAMES" != "" ]; then
-  if [ -d "$PLUGDIR"/PLUGNAME/.git ]; then
-    execute \
-      "git_update $PLUGDIR" \
-      "Updating plugin PLUGNAME"
-  else
-    execute \
-      "git_clone PLUGINREPO $PLUGDIR/PLUGNAME" \
-      "Installing plugin PLUGNAME"
-  fi
+    if [ -d "$PLUGDIR"/PLUGNAME/.git ]; then
+        execute \
+        "git_update $PLUGDIR" \
+        "Updating plugin PLUGNAME"
+    else
+        execute \
+        "git_clone PLUGINREPO $PLUGDIR/PLUGNAME" \
+        "Installing plugin PLUGNAME"
+    fi
 fi
 
 # exit on fail
@@ -179,12 +179,12 @@ failexitcode
 # run post install scripts
 
 run_postinst() {
-  dfmgr_run_post
+    dfmgr_run_post
 }
 
 execute \
-  "run_postinst" \
-  "Running post install scripts"
+"run_postinst" \
+"Running post install scripts"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
