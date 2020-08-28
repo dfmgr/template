@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APPNAME="$(basename $0)"
+APPNAME="template"
 USER="${SUDO_USER:-${USER}}"
 HOME="${USER_HOME:-${HOME}}"
 
@@ -33,6 +33,8 @@ else
 fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+user_installdirs
+
 # OS Support: supported_os unsupported_oses
 
 unsupported_oses
@@ -46,20 +48,18 @@ scripts_check
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Defaults
+APPNAME="${APPNAME:-template}"
+APPDIR="${APPDIR:-$HOME/.config/$APPNAME}"
+REPO="${DFMGRREPO:-https://github.com/dfmgr}/${APPNAME}"
+REPORAW="${REPORAW:-$REPO/raw}"
+APPVERSION="$(curl -LSs $REPORAW/master/version.txt)"
 
-APPNAME="template"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Setup plugins
+
 PLUGNAMES=""
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-# Version
-
-APPVERSION="$(curl -LSs ${DFMGRREPO:-https://github.com/dfmgr}/$APPNAME/raw/master/version.txt)"
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Install Type: user_installdirs system_installdirs
-
-user_installdirs
+PLUGDIR="${SHARE:-$HOME/.local/share}"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -69,11 +69,7 @@ dfmgr_install
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# Set options
-
-APPDIR="${HOMEDIR:-$CONF}/$APPNAME"
-PLUGDIR="$SHARE/$APPNAME"
-REPO="${DFMGRREPO:-https://github.com/dfmgr}/$APPNAME"
+# Version
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
