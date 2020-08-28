@@ -33,11 +33,6 @@ else
 fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Install Type: user_installdirs system_installdirs
-
-user_installdirs
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # OS Support: supported_os unsupported_oses
 
 unsupported_oses
@@ -60,6 +55,11 @@ PLUGNAMES=""
 # Version
 
 APPVERSION="$(curl -LSs ${DFMGRREPO:-https://github.com/dfmgr}/$APPNAME/raw/master/version.txt)"
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Install Type: user_installdirs system_installdirs
+
+user_installdirs
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
