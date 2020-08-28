@@ -15,33 +15,31 @@ requires:
 Debian based:
 
 ```shell
-apt install req
+apt install NAME
 ```  
 
 Fedora Based:
 
 ```shell
-yum install req
+yum install NAME
 ```  
 
 Arch Based:
 
 ```shell
-pacman -S req
+pacman -S NAME
 ```  
 
 MacOS:  
 
 ```shell
-brew install req
+brew install NAME
 ```
-  
   
 ```shell
 mv -fv "$HOME/.config/NAME" "$HOME/.config/NAME.bak"
 git clone https://github.com/dfmgr/NAME "$HOME/.config/NAME"
 ```
-  
   
 <p align=center>
   <a href="https://wiki.archlinux.org/index.php/NAME" target="_blank" rel="noopener noreferrer">NAME wiki</a>  |  
