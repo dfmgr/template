@@ -38,6 +38,11 @@ fi
 user_installdirs
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# OS Support: supported_os unsupported_oses
+
+unsupported_oses
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Make sure the scripts repo is installed
 
