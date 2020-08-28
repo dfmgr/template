@@ -1,0 +1,46 @@
+# For more information about the configurations used
+# in this file, please see the Travis CI documentation.
+#
+# https://docs.travis-ci.com
+language: bash
+sudo: enabled
+os: linux
+dist: bionic
+
+arch:
+  - amd64
+  - arm64
+
+env:
+  - APPNAME="template"
+  - EXEC_CMD="template"
+  - SCRIPTSDIR="/usr/local/share/CasjaysDev/scripts"
+  - DOCKER_RUN="docker run --rm -v ${SCRIPTSDIR}:/scripts -it -e APPNAME=$APPNAME"
+
+install:
+  - sudo git clone https://github.com/casjay-dotfiles/scripts "$SCRIPTSDIR"
+  - sudo $SCRIPTSDIR/install.sh
+  - sudo $SCRIPTSDIR/bin/pkmgr init
+  - $SCRIPTSDIR/bin/dfmgr install $APPNAME && $SCRIPTSDIR/bin/dfmgr update $APPNAME
+  - bash -c "[ -f $(command -v $EXEC_CMD >/dev/null 2>&1) ] && timeout --signal=9 --foreground --preserve-status 5 $EXEC_CMD || true"
+
+#services: docker
+
+#before_install:
+#  - docker pull archlinux
+#  - docker pull centos
+#  - docker pull debian
+#  - docker pull fedora
+#  - docker pull ubuntu
+
+#script:
+#  - $DOCKER_RUN archlinux /bin/bash -c "/scripts/tests/docker-pacman.sh; dfmgr install $APPNAME"
+#  - #DOCKER_RUN centos /bin/bash -c "/scripts/tests/docker-yum.sh; dfmgr install $APPNAME"
+#  - $DOCKER_RUN fedora /bin/bash -c "/scripts/tests/docker-dnf.sh; dfmgr install $APPNAME"
+#  - $DOCKER_RUN debian /bin/bash -c "/scripts/tests/docker-apt.sh; dfmgr install $APPNAME"
+#  - $DOCKER_RUN ubuntu /bin/bash -c "/scripts/tests/docker-apt.sh; dfmgr install $APPNAME"
+
+notifications:
+  email:
+    on_failure: never
+    on_success: never
