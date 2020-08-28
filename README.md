@@ -45,5 +45,5 @@ git clone https://github.com/dfmgr/NAME "$HOME/.config/NAME"
   
 <p align=center>
   <a href="https://wiki.archlinux.org/index.php/NAME" target="_blank">NAME wiki</a>  |  
-  <a href="NAME" target="_blank">NAME site</a>
+  <a href="NAME" target="_blank" rel="noopener noreferrer">NAME site</a>
 </p>  
