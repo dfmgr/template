@@ -46,6 +46,7 @@ unsupported_oses
 scripts_check
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+exit # remove this line
 
 # Defaults
 APPNAME="${APPNAME:-template}"
