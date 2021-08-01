@@ -5,7 +5,7 @@ DESCRIBE
 Automatic install/update:
 
 ```shell
-bash -c "$(curl -LSs https://github.com/dfmgr/NAME/raw/master/install.sh)"
+bash -c "$(curl -LSs https://github.com/dfmgr/NAME/raw/main/install.sh)"
 ```
 
 Manual install:
