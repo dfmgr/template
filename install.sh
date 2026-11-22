@@ -25,6 +25,20 @@ CASJAYSDEVDIR="${CASJAYSDEVDIR:-/usr/local/share/CasjaysDev/scripts}"
 SCRIPTSFUNCTDIR="${CASJAYSDEVDIR:-/usr/local/share/CasjaysDev/scripts}/functions"
 SCRIPTSFUNCTFILE="${SCRIPTSAPPFUNCTFILE:-app-installer.bash}"
 SCRIPTSFUNCTURL="${SCRIPTSAPPFUNCTURL:-https://github.com/dfmgr/installer/raw/main/functions}"
+# Apply bounded defaults to every curl request unless the call already sets them.
+curl() {
+  local option has_connect_timeout="no" has_max_time="no"
+  local -a curl_deadlines=()
+  for option in "$@"; do
+    case "$option" in
+      --connect-timeout | --connect-timeout=* | -connect-timeout | -connect-timeout=*) has_connect_timeout="yes" ;;
+      --max-time | --max-time=* | -m | -m[0-9]* | -m=*) has_max_time="yes" ;;
+    esac
+  done
+  [ "$has_connect_timeout" = "yes" ] || curl_deadlines+=(--connect-timeout 10)
+  [ "$has_max_time" = "yes" ] || curl_deadlines+=(--max-time 60)
+  command curl -q "${curl_deadlines[@]}" "$@"
+}
 connect_test() { ping -c1 1.1.1.1 &>/dev/null || curl --disable -LSs --connect-timeout 3 --retry 0 --max-time 1 1.1.1.1 2>/dev/null | grep -e "HTTP/[0123456789]" | grep -q "200" -n1 &>/dev/null; }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if [ -f "$PWD/$SCRIPTSFUNCTFILE" ]; then
